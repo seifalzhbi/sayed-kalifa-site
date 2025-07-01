@@ -1,178 +1,99 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>سيف الذهبي - معرض الصور</title>
-    <style>
-        /* CSS سيتم تضمينه هنا */
-        :root {
-            --primary-color: #d4af37;
-            --secondary-color: #1a1a1a;
-            --accent-color: #8b6914;
-            --light-color: #f8f8f8;
-            --dark-color: #333;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Tajawal', Arial, sans-serif;
-            background-color: #f5f5f5;
-            color: var(--dark-color);
-            line-height: 1.6;
-        }
-
-        /* باقي أنماط CSS من الملف السابق */
-        /* ... سيتم تضمين كل أنماط CSS هنا ... */
-    </style>
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Lateef:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- شريط اللغة -->
-    <div class="language-switcher">
-        <button id="langAr" class="active">العربية</button>
-        <button id="langEn">English</button>
-    </div>
+    <header>
+        <div class="logo-container">
+            <h1 class="logo">سيف الذهبي</h1>
+            <p class="slogan">معرض الصور الفني</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">الرئيسية</a></li>
+                <li><a href="#">المعرض</a></li>
+                <li><a href="#">من نحن</a></li>
+                <li><a href="#">اتصل بنا</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <!-- باقي هيكل HTML من الملف السابق -->
-    <!-- ... سيتم تضمين كل HTML هنا مع تعديلات للغة ... -->
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2>مرحبًا بكم في معرض سيف الذهبي</h2>
+                <p>استكشف مجموعة رائعة من الصور الفنية المختارة بعناية</p>
+                <button class="cta-button">استكشف المعرض</button>
+            </div>
+        </section>
 
-    <script>
-        // JavaScript سيتم تضمينه هنا
-        document.addEventListener('DOMContentLoaded', function() {
-            // دعم متعدد اللغات
-            const translations = {
-                'ar': {
-                    'siteTitle': 'سيف الذهبي',
-                    'slogan': 'معرض الصور الفني',
-                    'welcome': 'مرحبًا بكم في معرض سيف الذهبي',
-                    'explore': 'استكشف مجموعة رائعة من الصور الفنية المختارة بعناية',
-                    'exploreBtn': 'استكشف المعرض',
-                    'upload': 'رفع الصور',
-                    'uploadHint': 'اسحب وأفلت الصور هنا أو انقر لاختيار الملفات',
-                    'imageTitle': 'عنوان الصورة (اختياري)',
-                    'uploadBtn': 'رفع الصور',
-                    'gallery': 'أحدث الصور',
-                    'loading': 'جاري تحميل الصور...',
-                    'noImages': 'لا توجد صور متاحة بعد.',
-                    'uploadError': 'الرجاء اختيار ملفات أولاً'
-                },
-                'en': {
-                    'siteTitle': 'Seif Alzhbi',
-                    'slogan': 'Art Photo Gallery',
-                    'welcome': 'Welcome to Seif Alzhbi Gallery',
-                    'explore': 'Explore a wonderful collection of carefully selected art photos',
-                    'exploreBtn': 'Explore Gallery',
-                    'upload': 'Upload Photos',
-                    'uploadHint': 'Drag and drop images here or click to select files',
-                    'imageTitle': 'Image title (optional)',
-                    'uploadBtn': 'Upload Images',
-                    'gallery': 'Latest Photos',
-                    'loading': 'Loading images...',
-                    'noImages': 'No images available yet.',
-                    'uploadError': 'Please select files first'
-                }
-            };
+        <section class="upload-section">
+            <h2>رفع الصور</h2>
+            <div class="upload-container">
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <div class="upload-area" id="dropArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>اسحب وأفلت الصور هنا أو انقر لاختيار الملفات</p>
+                        <input type="file" id="fileInput" name="images[]" multiple accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="imageTitle" name="title" placeholder="عنوان الصورة (اختياري)">
+                    </div>
+                    <button type="submit" class="upload-button">رفع الصور</button>
+                </form>
+                <div class="progress-container" id="progressContainer" style="display: none;">
+                    <div class="progress-bar" id="progressBar"></div>
+                    <span id="progressText">0%</span>
+                </div>
+                <div id="uploadStatus"></div>
+            </div>
+        </section>
 
-            let currentLang = 'ar';
+        <section class="gallery">
+            <h2>أحدث الصور</h2>
+            <div class="gallery-container" id="galleryContainer">
+                <!-- سيتم تحميل الصور هنا عبر JavaScript -->
+                <div class="loading">جاري تحميل الصور...</div>
+            </div>
+        </section>
+    </main>
 
-            // عناصر تحتاج ترجمة
-            const elementsToTranslate = {
-                'logo': 'siteTitle',
-                'slogan': 'slogan',
-                'welcomeText': 'welcome',
-                'exploreText': 'explore',
-                'exploreBtn': 'exploreBtn',
-                'uploadTitle': 'upload',
-                'uploadHint': 'uploadHint',
-                'imageTitlePlaceholder': 'imageTitle',
-                'uploadBtn': 'uploadBtn',
-                'galleryTitle': 'gallery',
-                'loadingText': 'loading'
-            };
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section about">
+                <h3>عن سيف الذهبي</h3>
+                <p>معرض الصور الفني الذي يقدم أجمل اللقطات وأروع الصور المختارة بعناية.</p>
+            </div>
+            <div class="footer-section contact">
+                <h3>اتصل بنا</h3>
+                <p><i class="fas fa-phone"></i> 01224722049</p>
+                <p><i class="fas fa-envelope"></i> info@seifalzhbi.com</p>
+            </div>
+            <div class="footer-section social">
+                <h3>تابعنا</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 سيف الذهبي. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
 
-            // تغيير اللغة
-            function changeLanguage(lang) {
-                currentLang = lang;
-                document.documentElement.lang = lang;
-                document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-                
-                // تحديث النصوص
-                for (const [id, key] of Object.entries(elementsToTranslate)) {
-                    const element = document.getElementById(id);
-                    if (element) {
-                        element.textContent = translations[lang][key];
-                    }
-                }
-                
-                // تحديث العناصر الأخرى
-                const placeholders = document.querySelectorAll('[data-translate]');
-                placeholders.forEach(el => {
-                    const key = el.getAttribute('data-translate');
-                    if (el.placeholder) {
-                        el.placeholder = translations[lang][key];
-                    } else if (el.textContent) {
-                        el.textContent = translations[lang][key];
-                    }
-                });
-                
-                // تحديث أزرار اللغة
-                document.getElementById('langAr').classList.toggle('active', lang === 'ar');
-                document.getElementById('langEn').classList.toggle('active', lang === 'en');
-            }
+    <!-- زر واتساب العائم -->
+    <a href="https://wa.me/201224722049" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
-            // أحداث أزرار اللغة
-            document.getElementById('langAr').addEventListener('click', () => changeLanguage('ar'));
-            document.getElementById('langEn').addEventListener('click', () => changeLanguage('en'));
-
-            // باقي كود JavaScript من الملف السابق
-            // ... سيتم تضمين كل JavaScript هنا مع تعديلات للغة ...
-        });
-    </script>
+    <script src="js/script.js"></script>
 </body>
 </html>
-{
-  "name": "معرض سيف الذهبي",
-  "short_name": "سيف الذهبي",
-  "start_url": ".",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#d4af37",
-  "description": "معرض الصور الفني لسيف الذهبي",
-  "icons": [
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-@media (max-width: 768px) {
-    /* تعديلات للهاتف */
-    header {
-        flex-direction: column;
-    }
-    
-    .logo {
-        font-size: 2rem;
-    }
-    
-    .gallery-container {
-        grid-template-columns: 1fr;
-
-    }
-}
-<link rel="manifest" href="manifest.json">
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
-}
