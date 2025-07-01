@@ -3,102 +3,542 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سيف الذهبي - معرض الصور</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>سيف الذهبي - معرض الصور الفني</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Lateef:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #d4af37;
+            --secondary: #1a1a1a;
+            --light: #f8f9fa;
+            --text: #333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), #b7950b);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        nav {
+            background-color: var(--secondary);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        nav li {
+            margin: 0 1.5rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+            padding: 0.5rem;
+            display: block;
+        }
+        
+        nav a:hover, nav a.active {
+            color: var(--primary);
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover;
+            color: white;
+            position: relative;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+        }
+        
+        .btn:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+        
+        .section {
+            padding: 3rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            color: var(--secondary);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary);
+            margin: 0.5rem auto;
+        }
+        
+        .upload-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .upload-area {
+            border: 2px dashed #ccc;
+            padding: 3rem 2rem;
+            margin: 1.5rem 0;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 8px;
+            position: relative;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary);
+            background-color: rgba(212, 175, 55, 0.05);
+        }
+        
+        .upload-area i {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .upload-area p {
+            margin-bottom: 1rem;
+        }
+        
+        #fileInput {
+            display: none;
+        }
+        
+        .file-label {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .file-label:hover {
+            background-color: #c9a227;
+        }
+        
+        .form-group {
+            margin: 1.5rem 0;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .upload-btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .upload-btn:hover {
+            background-color: #333;
+            transform: translateY(-2px);
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            aspect-ratio: 4/3;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .gallery-item .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: all 0.3s;
+        }
+        
+        .gallery-item:hover .overlay {
+            transform: translateY(0);
+        }
+        
+        .about-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .contact-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            flex: 1;
+            min-width: 250px;
+            transition: all 0.3s;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .contact-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: auto;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            grid-column: 1 / -1;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav li {
+                margin: 0.5rem 0;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <div class="logo-container">
-            <h1 class="logo">سيف الذهبي</h1>
-            <p class="slogan">معرض الصور الفني</p>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#" class="active">الرئيسية</a></li>
-                <li><a href="#">المعرض</a></li>
-                <li><a href="#">من نحن</a></li>
-                <li><a href="#">اتصل بنا</a></li>
-            </ul>
-        </nav>
+        <h1>سيف الذهبي</h1>
+        <p>معرض الصور الفني</p>
     </header>
-
-    <main>
-        <section class="hero">
-            <div class="hero-content">
-                <h2>مرحبًا بكم في معرض سيف الذهبي</h2>
-                <p>استكشف مجموعة رائعة من الصور الفنية المختارة بعناية</p>
-                <button class="cta-button">استكشف المعرض</button>
+    
+    <nav>
+        <ul>
+            <li><a href="#home" class="active">الرئيسية</a></li>
+            <li><a href="#gallery">المعرض</a></li>
+            <li><a href="#upload">رفع الصور</a></li>
+            <li><a href="#about">من نحن</a></li>
+            <li><a href="#contact">اتصل بنا</a></li>
+        </ul>
+    </nav>
+    
+    <section class="hero" id="home">
+        <h2>مرحبًا بكم في معرض سيف الذهبي</h2>
+        <p>استكشف مجموعة رائعة من الصور الفنية المختارة بعناية</p>
+        <a href="#gallery" class="btn">استكشف المعرض</a>
+    </section>
+    
+    <section class="section" id="upload">
+        <h2 class="section-title">رفع الصور</h2>
+        <div class="upload-container">
+            <div class="upload-area" id="uploadArea">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>اسحب وأسقط الصور هنا أو انقر لاختيار الملفات</p>
+                <input type="file" id="fileInput" multiple accept="image/*">
+                <label for="fileInput" class="file-label">اختيار الملفات</label>
             </div>
-        </section>
-
-        <section class="upload-section">
-            <h2>رفع الصور</h2>
-            <div class="upload-container">
-                <form id="uploadForm" enctype="multipart/form-data">
-                    <div class="upload-area" id="dropArea">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                        <p>اسحب وأفلت الصور هنا أو انقر لاختيار الملفات</p>
-                        <input type="file" id="fileInput" name="images[]" multiple accept="image/*">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="imageTitle" name="title" placeholder="عنوان الصورة (اختياري)">
-                    </div>
-                    <button type="submit" class="upload-button">رفع الصور</button>
-                </form>
-                <div class="progress-container" id="progressContainer" style="display: none;">
-                    <div class="progress-bar" id="progressBar"></div>
-                    <span id="progressText">0%</span>
-                </div>
-                <div id="uploadStatus"></div>
+            <div class="form-group">
+                <input type="text" id="imageTitle" placeholder="عنوان الصورة (اختياري)">
             </div>
-        </section>
-        <div class="gallery">
-  <img src="images/photo1.jpg" alt="وصف الصورة 1">
-  <img src="images/photo2.jpg" alt="وصف الصورة 2">
-  <img src="images/photo3.jpg" alt="وصف الصورة 3">
+            <button class="upload-btn" id="uploadBtn">رفع الصور</button>
         </div>
-
-        <section class="gallery">
-            <h2>أحدث الصور</h2>
-            <div class="gallery-container" id="galleryContainer">
-                <!-- سيتم تحميل الصور هنا عبر JavaScript -->
-                <div class="loading">جاري تحميل الصور...</div>
+    </section>
+    
+    <section class="section" id="gallery">
+        <h2 class="section-title">أحدث الصور</h2>
+        <div class="gallery" id="galleryContainer">
+            <div class="loading">جاري تحميل الصور...</div>
+        </div>
+    </section>
+    
+    <section class="section" id="about">
+        <h2 class="section-title">من نحن</h2>
+        <div class="about-content">
+            <p>سيف الذهبي هو فنان ومصور محترف مع خبرة تزيد عن 10 سنوات في مجال التصوير الفني والفوتوغرافي. نقدم لكم في هذا المعرض مجموعة مختارة من أفضل الأعمال التي تم إنتاجها على مدار السنوات الماضية.</p>
+            <p>نسعى دائمًا لتقديم محتوى فني متميز يجمع بين الجمال الفني والرؤية الإبداعية الفريدة.</p>
+        </div>
+    </section>
+    
+    <section class="section" id="contact">
+        <h2 class="section-title">اتصل بنا</h2>
+        <div class="contact-info">
+            <div class="contact-card">
+                <i class="fas fa-phone"></i>
+                <h3>الهاتف</h3>
+                <p>+966 12 247 22049</p>
             </div>
-        </section>
-    </main>
-
+            <div class="contact-card">
+                <i class="fas fa-envelope"></i>
+                <h3>البريد الإلكتروني</h3>
+                <p>info@saif-alzhbi.com</p>
+            </div>
+            <div class="contact-card">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>العنوان</h3>
+                <p>جدة، المملكة العربية السعودية</p>
+            </div>
+        </div>
+    </section>
+    
     <footer>
-        <div class="footer-content">
-            <div class="footer-section about">
-                <h3>عن سيف الذهبي</h3>
-                <p>معرض الصور الفني الذي يقدم أجمل اللقطات وأروع الصور المختارة بعناية.</p>
-            </div>
-            <div class="footer-section contact">
-                <h3>اتصل بنا</h3>
-                <p><i class="fas fa-phone"></i> 01224722049</p>
-                <p><i class="fas fa-envelope"></i> info@seifalzhbi.com</p>
-            </div>
-            <div class="footer-section social">
-                <h3>تابعنا</h3>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2023 سيف الذهبي. جميع الحقوق محفوظة.</p>
+        <p>جميع الحقوق محفوظة &copy; <span id="year"></span> - معرض سيف الذهبي</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="https://wa.me/9661224722049"><i class="fab fa-whatsapp"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
         </div>
     </footer>
 
-    <!-- زر واتساب العائم -->
-    <a href="https://wa.me/201224722049" class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <script src="js/script.js"></script>
+    <script>
+        // عرض السنة الحالية
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // التنقل بين الأقسام
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('nav a').forEach(navLink => {
+                    navLink.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // معرض الصور (بيانات وهمية للعرض)
+        const sampleImages = [
+            {
+                url: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80',
+                title: 'الطبيعة الخلابة'
+            },
+            {
+                url: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80',
+                title: 'الغابة السحرية'
+            },
+            {
+                url: 'https://images.unsplash.com/photo-1429087969512-1e85aab2683d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80',
+                title: 'الشروق الرائع'
+            },
+            {
+                url: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80',
+                title: 'بحيرة الغروب'
+            },
+            {
+                url: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80',
+                title: 'الضباب الصباحي'
+            },
+            {
+                url: 'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80',
+                title: 'الغابة المطيرة'
+            }
+        ];
+        
+        // عرض الصور في المعرض
+        setTimeout(() => {
+            const galleryContainer = document.getElementById('galleryContainer');
+            galleryContainer.innerHTML = '';
+            
+            sampleImages.forEach(image => {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                galleryItem.innerHTML = `
+                    <img src="${image.url}" alt="${image.title}">
+                    <div class="overlay">${image.title}</div>
+                `;
+                galleryContainer.appendChild(galleryItem);
+            });
+        }, 1500);
+        
+        // رفع الصور (وظيفة وهمية للعرض)
+        document.getElementById('uploadBtn').addEventListener('click', function() {
+            const fileInput = document.getElementById('fileInput');
+            const imageTitle = document.getElementById('imageTitle');
+            
+            if (fileInput.files.length > 0) {
+                alert(`سيتم رفع ${fileInput.files.length} صورة${fileInput.files.length > 1 ? 'ات' : ''} ${imageTitle.value ? 'بعنوان: ' + imageTitle.value : ''}`);
+                
+                // هنا يمكنك إضافة كود لرفع الصور إلى الخادم
+                // ثم إضافتها إلى المعرض
+                
+                // إعادة تعيين الحقول
+                fileInput.value = '';
+                imageTitle.value = '';
+            } else {
+                alert('الرجاء اختيار صورة واحدة على الأقل');
+            }
+        });
+        
+        // تحسين تجربة رفع الملفات
+        const uploadArea = document.getElementById('uploadArea');
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = 'var(--primary)';
+            uploadArea.style.backgroundColor = 'rgba(212, 175, 55, 0.1)';
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.borderColor = '#ccc';
+            uploadArea.style.backgroundColor = 'transparent';
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#ccc';
+            uploadArea.style.backgroundColor = 'transparent';
+            
+            const files = e.dataTransfer.files;
+            document.getElementById('fileInput').files = files;
+            
+            if (files.length > 0) {
+                uploadArea.querySelector('p').textContent = `تم اختيار ${files.length} ملف${files.length > 1 ? 'ات' : ''}`;
+            }
+        });
+    </script>
 </body>
 </html>
