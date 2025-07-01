@@ -306,3 +306,12 @@
     <img src="images/صورتك-1-thumb.jpg" alt="وصف مصغر">
 </a>
 https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+}
+.gallery img {
+    width: 100%;
+    border-radius: 8px;
+}
